@@ -36,11 +36,11 @@
     body {
       font-family: 'Vazirmatn', sans-serif; 
       background-color: var(--bg-color);   
-      min-height: 100vh;                   
-      display: flex;                       
-      justify-content: center;             
-      align-items: center;                 
-      padding: 25px;                       
+      min-height: 100vh;                    
+      display: flex;                        
+      justify-content: center;              
+      align-items: center;                  
+      padding: 25px;                        
       background-image: radial-gradient(rgba(194, 153, 27, 0.15) 1px, transparent 1px), 
                         radial-gradient(rgba(194, 153, 27, 0.15) 1px, var(--bg-color) 1px);
       background-size: 24px 24px;          
@@ -48,11 +48,11 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش دوم: چوکات هوشمند (افزایش عرض به 21 پیکسل در کامپیوتر)
+       بخش دوم: چوکات هوشمند
        ────────────────────────────────────────────────────────── */
     .container {
       width: 100%;
-      max-width: 2100px;                    /* عرض چوکات کامپیوتر برای افقی‌تر شدن بیشتر شد */
+      max-width: 2100px;                    
       background: var(--card-bg);          
       border-radius: 30px;                 
       box-shadow: 
@@ -72,12 +72,13 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش سوم: جدول هدر و تنظیمات انیمیشن ماشین‌تحریر (Typewriter)
+       بخش سوم: تنظیم فیکس و مهندسی شده هدر بدون چوکات
        ────────────────────────────────────────────────────────── */
     .header-layout-table {
       width: 100%;
       border-collapse: collapse;
       margin: 10px 0;                 
+      table-layout: fixed; /* تقسیم کاملاً فیکس و برابر فضا */
     }
 
     .header-layout-table td {
@@ -88,89 +89,44 @@
     }
 
     .slogan-box {
-      width: 36%;                          /* اختصاص ۳۶ درصد فضا به شعار راست و چپ */
-      padding: 5px 10px !important;
-      background: transparent !important;  /* ۱. حذف کامل پس‌زمینه سفید */
-      border: none !important;             /* ۲. حذف کامل چوکات و خطوط دور متن */
-      box-shadow: none !important;         /* ۳. حذف سایه دور چوکات */
-      
+      width: 36%;                          /* ۳۶ درصد فضا برای تقارن کامل */
+      background: transparent !important;  /* حذف کامل چوکات */
+      border: none !important;             
+      box-shadow: none !important;         
       font-family: 'Amiri', serif;         
       font-weight: 700;                    
       color: var(--primary-color);         
       line-height: 1.4 !important;         
-      overflow: hidden;
-      
-      /* تنظیم فیکس و تراز هندسی برای وسط‌چین شدن دقیق نسبت به لوگو */
-      height: 150px;                       
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      vertical-align: middle;
       direction: rtl;                      
     }
 
-    /* تنظیم اندازه فونت شعارها (هم کامپیوتر هم موبایل در دو خط) */
     .typewriter-text {
       display: inline-block;
-      white-space: normal !important;      /* ۴. تنظیم اجباری متن در دو خط هم برای کامپیوتر و هم تلفن */
-      word-wrap: break-word !important;    /* شکستن منظم کلمات در صورت نیاز */
+      white-space: normal !important;      /* اجازه به شکستن خط */
+      word-wrap: break-word !important;    
       width: 100%;
       text-align: center;
       direction: rtl;
       opacity: 0;
-      font-size: 38px;                     /* اندازه فونت بسیار مناسب برای دو خط */
-      
-      /* حفظ دقیق انیمیشن لوکس فعلی شما */
+      font-size: 38px;                     /* فونت ایده آل دسکتاپ */
       animation: smoothShow 8s ease-in-out infinite;
     }
 
-    /* تاخیر انیمیشن سمت چپ برای زیبایی و هماهنگی بیشتر */
     .slogan-left .typewriter-text {
       animation-delay: 0.5s;
     }
 
-    /* انیمیشن ظهور و محو شدن نرم (دقیقاً همان انیمیشن درخواستی شما) */
     @keyframes smoothShow {
-      0% { opacity: 0; transform: translateX(15px); filter: blur(5px); }
-      35%, 85% { opacity: 1; transform: translateX(0); filter: blur(0); } /* مکث ۵ ثانیه‌ای */
-      100% { opacity: 0; transform: translateX(-15px); filter: blur(5px); }
+      0% { opacity: 0; transform: translateX(15px); filter: blur(4px); }
+      35%, 85% { opacity: 1; transform: translateX(0); filter: blur(0); } 
+      100% { opacity: 0; transform: translateX(-15px); filter: blur(4px); }
     }
 
-    /* تنظیم فیکس کادر لوگوی وسط برای ایجاد فاصله‌های کاملاً مساوی در دو طرف */
     .logo-center-container {
-      width: 28%;                          /* ۲۸ درصد برای لوگو (۳۶٪ + ۲۸٪ + ۳۶٪ = ۱۰۰٪ کامل و متقارن) */
+      width: 28%;                          /* ۲۸ درصد فضا برای لوگوی وسط (۳۶+۲۸+۳۶=۱۰۰) */
       text-align: center;
       vertical-align: middle;
-    }
-
-    /* ──────────────────────────────────────────────────────────
-       تنظیمات مخصوص تلفن (موبایل) - کاملاً هماهنگ با کامپیوتر
-       ────────────────────────────────────────────────────────── */
-    @media (max-width: 600px) {
-      .header-layout-table {
-        display: table !important;         /* حفظ ساختار افقی جدول در موبایل برای تقارن */
-        width: 100% !important;
-      }
-      
-      .slogan-box { 
-        display: table-cell !important;    /* فعال نگه داشتن متن‌ها در موبایل */
-        width: 35% !important;             /* تنظیم درصد فضا در موبایل */
-        height: 100px;                     /* ارتفاع متناسب با صفحه موبایل */
-      }
-      
-      .logo-center-container { 
-        width: 30% !important; 
-      }
-      
-      .logo-img { 
-        width: 90px !important;            /* کوچکتر شدن اندازه لوگو در موبایل برای جا شدن متن‌ها */
-        height: 90px !important; 
-      }
-      
-      .typewriter-text { 
-        font-size: 16px !important;        /* اندازه فونت خوانا و دو خطه فیت در موبایل */
-      }
     }
 
     .logo-img {
@@ -180,15 +136,16 @@
       filter: drop-shadow(0 8px 16px rgba(6, 38, 31, 0.18)); 
     }
 
-    /* کادر رنگی عنوان اصلی */
+    /* ──────────────────────────────────────────────────────────
+       تنظیمات بدنه و استایل‌های عمومی قالب
+       ────────────────────────────────────────────────────────── */
     .header-table-box {
       width: 100%;
       margin: 0 0 30px 0;                  
-      background: linear-gradient(135deg, var(--primary-color), #031411); 
-      border: 4px double var(--accent-color); 
-      border-radius: 14px;                 
-      padding: 20px;                  
+      background: linear-gradient(135deg, var(--primary-color), #031411);       padding: 20px;                  
       text-align: center;                  
+      border: 4px double var(--accent-color); 
+      border-radius: 14px;
     }
 
     .header-table-box h2 {
@@ -207,9 +164,6 @@
       margin-top: 8px;
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش چهارم: فرم ورودی‌ها و کادر جستجو
-       ────────────────────────────────────────────────────────── */
     #searchPage {
       display: block;                      
     }
@@ -222,7 +176,7 @@
       background: #f7f9f7;                 
       padding: 35px; 
       border-radius: 16px;
-      border: 2px solid #dce5df;           
+      border: 2px solid #dce5df;            
     }
 
     .input-box {
@@ -239,7 +193,7 @@
 
     input {
       padding: 16px 20px;                  
-      border: 3px solid #b2c4ba;           
+      border: 3px solid #b2c4ba;            
       border-radius: 12px;                 
       font-family: 'Vazirmatn', sans-serif;
       font-size: 22px;                     
@@ -304,9 +258,6 @@
       cursor: pointer;
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش پنجم: انیمیشن لودینگ و کادر خطا
-       ────────────────────────────────────────────────────────── */
     #loading {
       display: none;                       
       text-align: center;
@@ -339,9 +290,6 @@
       font-size: 20px;                     
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش ششم: افکت‌های کلیک، حرکت ماوس و انیمیشن جدول دوقلو
-       ────────────────────────────────────────────────────────── */
     #resultPage {
       display: none;                       
     }
@@ -358,7 +306,7 @@
 
     .luxury-table {
       width: 100%;
-      border-collapse: separate;           
+      border-collapse: separate;            
       border-spacing: 0 10px;              
       margin-bottom: 30px;
     }
@@ -383,13 +331,11 @@
       border-left: 2px solid #cedbd3;
     }
 
-    /* افکت حرکت ماوس (Hover) */
     .luxury-table tr:hover td {
       background-color: #F0EAD6 !important; 
       color: #000000 !important;           
     }
 
-    /* استایل ردیف‌های ۵ و ۶ از آخر (آبی شاهانه) */
     .luxury-table tr:nth-last-child(5) td,
     .luxury-table tr:nth-last-child(6) td {
       background-color: var(--important-row-bg) !important; 
@@ -408,7 +354,6 @@
       border-left: 3px solid var(--accent-color) !important;  
     }
 
-    /* افکت فوق‌العاده کلیک و لمس روی ردیف‌ها */
     .luxury-table tr:active td,
     .luxury-table tr.selected-row td {
       background-color: #543717 !important; 
@@ -479,7 +424,7 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش هفتم: بهینه‌سازی کامل نسخه موبایل (تغییر ساختار به عمودی)
+       بخش هفتم: بهینه‌سازی کامل نسخه موبایل (تضمین ۲ خطه بودن فیکس)
        ────────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       body { padding: 0; align-items: flex-start; }
@@ -498,11 +443,23 @@
         padding: 12px 15px;      
       }
 
-      /* مخفی کردن شعارهای عریض در موبایل جهت جلوگیری از به هم ریختگی قالب */
-      .slogan-box { display: none !important; }
-      .logo-center-container { width: 100% !important; }
+      /* فعال‌سازی کامل شعارها در موبایل به صورت کاملاً هم‌تراز و فیکس */
+      .header-layout-table {
+        display: table !important;
+      }
+      .slogan-box { 
+        display: table-cell !important; 
+        width: 35% !important;
+        vertical-align: middle !important;
+      }
+      .logo-center-container { 
+        display: table-cell !important;
+        width: 30% !important; 
+      }
 
-      .logo-img { width: 130px; height: 130px; }       
+      .logo-img { width: 100px; height: 100px; }       
+      .typewriter-text { font-size: 15px !important; line-height: 1.3 !important; }
+
       .header-table-box { padding: 12px 10px; margin-bottom: 20px; }
       .header-table-box h2 { font-size: 34px; }        
       
@@ -525,7 +482,7 @@
     <table class="header-layout-table">
       <tr>
         <td class="slogan-box slogan-right">
-          <div class="typewriter-text">علم د مؤمن تر ټولو ستره شتمني ده</div>
+          <div class="typewriter-text">علم د مؤمن<br>تر ټولو ستره شتمني ده</div>
         </td>
         
         <td class="logo-center-container">
@@ -533,7 +490,7 @@
         </td>
         
         <td class="slogan-box slogan-left">
-          <div class="typewriter-text">د زده کوونکو بریا زموږ هیله ده</div>
+          <div class="typewriter-text">د زده کوونکو بریا<br>زموږ هیله ده</div>
         </td>
       </tr>
     </table>
@@ -593,7 +550,6 @@
       }
     }
 
-    // ریست فیلدها و مخفی‌سازی کادر خطا
     function clearFormFields() {
       document.getElementById('basisNum').value = '';
       document.getElementById('studentCode').value = '';
@@ -622,7 +578,6 @@
 
       loading.style.display = 'block';
 
-      // اتصال کاملاً ایمن و بدون تغییر به لینک دیپلوی وب‌اپ شما
       var webAppUrl = "https://script.google.com/macros/s/AKfycbwfr53cS_A8nz7hEGEF5l3oc3m6dHO0ul0CIQumAMNKY4pJ1Qv19aYum0AsS3tvxB3LYw/exec";
 
       fetch(webAppUrl, {
@@ -667,7 +622,6 @@
       }); 
     }
 
-    // تابع مدیریت افکت فعال کلیک و تغییر کلاس رنگ ردیف انتخاب شده
     function selectRow(row) {
       var rows = document.querySelectorAll('.luxury-table tr');
       rows.forEach(function(r) {
