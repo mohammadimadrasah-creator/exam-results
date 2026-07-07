@@ -40,39 +40,44 @@
       display: flex;                       
       justify-content: center;             
       align-items: center;                 
-      padding: 12px;                       
-      background-image: radial-gradient(rgba(194, 153, 27, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;          
+      padding: 25px;                       
+      background-image: radial-gradient(rgba(194, 153, 27, 0.15) 1px, transparent 1px), 
+                        radial-gradient(rgba(194, 153, 27, 0.15) 1px, var(--bg-color) 1px);
+      background-size: 24px 24px;          
+      background-position: 0 0, 12px 12px;
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش دوم: چوکات و کانتینر اصلی (بهینه‌شده برای اپلیکیشن موبایل)
+       بخش دوم: چوکات هوشمند (در کامپیوتر بزرگ و افقی، در موبایل عمودی)
        ────────────────────────────────────────────────────────── */
     .container {
       width: 100%;
-      max-width: 500px;                    /* محدود شده به اندازه استاندارد موبایل برای زیبایی بیشتر */
+      max-width: 960px;                    /* اندازه کامل و افقی برای کامپیوتر */
       background: var(--card-bg);          
-      border-radius: 20px;                 
-      box-shadow: 0 10px 25px rgba(6, 38, 31, 0.08);
+      border-radius: 30px;                 
+      box-shadow: 
+        0 10px 30px rgba(6, 38, 31, 0.05),
+        0 30px 70px rgba(6, 38, 31, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
       
-      border-top: 15px solid var(--primary-color);
-      border-bottom: 15px solid var(--primary-color);
-      border-right: 5px solid var(--accent-color);
-      border-left: 5px solid var(--accent-color);
+      border-top: 30px solid var(--primary-color);
+      border-bottom: 30px solid var(--primary-color);
+      border-right: 6px solid var(--accent-color);
+      border-left: 6px solid var(--accent-color);
       
-      outline: 1.5px solid var(--primary-color);
-      outline-offset: -5px;                
-      padding: 15px 20px;                  
-      transition: all 0.3s ease;           
+      outline: 2px solid var(--primary-color);
+      outline-offset: -8px;                
+      padding: 15px 40px 30px 40px;                  
+      transition: all 0.4s ease;           
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش سوم: هدر و لوگو
+       بخش سوم: جدول هدر و شعارهای راست و چپ با انیمیشن طلایی
        ────────────────────────────────────────────────────────── */
     .header-layout-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 10px;
+      margin: 10px 0;                 
     }
 
     .header-layout-table td {
@@ -83,38 +88,45 @@
     }
 
     .slogan-box {
-      width: 25%;                          
-      padding: 6px !important;
-      border: 2px double var(--accent-color) !important; 
-      border-radius: 6px;                  
+      width: 32%;                          
+      padding: 15px 10px !important;
+      background: linear-gradient(135deg, #ffffff, #f4f7f5) !important; 
+      border: 4px double var(--accent-color) !important; 
+      border-radius: 8px;                  
       text-align: center;
       font-family: 'Amiri', serif;         
-      font-size: 13px;                     /* کوچک شده برای موبایل */
+      font-size: 24px;                     
       font-weight: 700;                    
       color: var(--primary-color);         
-      line-height: 1.3 !important;
+      line-height: 1.4 !important;
+      animation: islamicGlow 3s infinite ease-in-out;
+    }
+
+    @keyframes islamicGlow {
+      0%, 100% { box-shadow: 0 4px 10px rgba(6, 38, 31, 0.05); transform: scale(1); }
+      50% { box-shadow: 0 0 15px rgba(194, 153, 27, 0.4); transform: scale(1.02); }
     }
 
     .logo-center-container {
-      width: 50%;                          
+      width: 36%;                          
       text-align: center;
     }
 
     .logo-img {
-      width: 110px;                        /* اندازه مناسب و جمع‌وجور لوگو در موبایل */
-      height: 110px;                       
+      width: 220px;                        
+      height: 220px;                       
       object-fit: contain;                 
-      filter: drop-shadow(0 4px 8px rgba(6, 38, 31, 0.15)); 
+      filter: drop-shadow(0 8px 16px rgba(6, 38, 31, 0.18)); 
     }
 
-    /* باکس عنوان اصلی */
+    /* کادر رنگی عنوان اصلی */
     .header-table-box {
       width: 100%;
-      margin-bottom: 20px;
+      margin: 0 0 30px 0;                  
       background: linear-gradient(135deg, var(--primary-color), #031411); 
-      border: 2.5px double var(--accent-color); 
-      border-radius: 10px;                 
-      padding: 10px 12px;                  
+      border: 4px double var(--accent-color); 
+      border-radius: 14px;                 
+      padding: 20px;                  
       text-align: center;                  
     }
 
@@ -122,20 +134,20 @@
       font-family: 'Jomhuria', serif;
       color: var(--accent-color);          
       margin: 0;
-      font-size: 34px;                     /* فونت عنوان متناسب با عرض صفحه گوشی */
+      font-size: 55px;                     
       font-weight: 400;
       line-height: 1.1;
     }
 
     .header-table-box .sub-title {
       color: #ffffff;                      
-      font-size: 12px;                     /* ظریف و کوچک */
+      font-size: 16px;                     
       font-weight: 600;
-      margin-top: 5px;
+      margin-top: 8px;
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش چهارم: فرم ورودی‌ها و دکمه‌ها
+       بخش چهارم: فرم ورودی‌ها و کادر جستجو
        ────────────────────────────────────────────────────────── */
     #searchPage {
       display: block;                      
@@ -144,12 +156,12 @@
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 15px;                           
-      margin-bottom: 15px;
+      gap: 25px;                           
+      margin-bottom: 25px;
       background: #f7f9f7;                 
-      padding: 15px; 
-      border-radius: 12px;
-      border: 1px solid #dce5df;           
+      padding: 35px; 
+      border-radius: 16px;
+      border: 2px solid #dce5df;           
     }
 
     .input-box {
@@ -158,86 +170,95 @@
     }
 
     label {
-      font-size: 15px;                     /* سایز حرفه‌ای و استاندارد لیبل */
-      font-weight: 700;
+      font-size: 22px;                     
+      font-weight: 800;
       color: var(--primary-color);
-      margin-bottom: 6px;                 
+      margin-bottom: 10px;                 
     }
 
     input {
-      padding: 12px 15px;                  
-      border: 2px solid #b2c4ba;           
-      border-radius: 10px;                 
+      padding: 16px 20px;                  
+      border: 3px solid #b2c4ba;           
+      border-radius: 12px;                 
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 16px;                     /* اندازه استاندارد فونت کیبورد موبایل */
+      font-size: 22px;                     
       outline: none;
       text-align: center;                  
       background-color: #ffffff;
       color: var(--primary-color);
       font-weight: 700;
+      transition: all 0.3s ease;
     }
 
     input:focus {
       border-color: var(--accent-color);    
-      box-shadow: 0 0 8px rgba(194, 153, 27, 0.2); 
+      box-shadow: 0 0 12px rgba(194, 153, 27, 0.25); 
     }
 
     .hint-text {
-      font-size: 11px;
+      font-size: 14px;
       color: #5c6a62;
-      margin-top: 4px;
+      margin-top: 6px;
+      font-weight: 700;
       text-align: center;
     }
 
     .btn-search {
       width: 100%;
-      padding: 14px;
+      padding: 20px;
       background: linear-gradient(135deg, var(--primary-color), #0b4237); 
       color: white;                        
-      border: 1px solid var(--accent-color); 
-      border-radius: 10px;
+      border: 2px solid var(--accent-color); 
+      border-radius: 12px;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 16px; 
-      font-weight: 700;
+      font-size: 24px; 
+      font-weight: 800;
       cursor: pointer;                     
-      box-shadow: 0 4px 10px rgba(6, 38, 31, 0.15);
+      box-shadow: 0 6px 15px rgba(6, 38, 31, 0.2);
       margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-search:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(6, 38, 31, 0.3);
     }
 
     .btn-clear-wrapper {
       display: flex;
       justify-content: center;             
       width: 100%;
+      margin-top: 5px;
     }
 
     .btn-clear {
-      padding: 6px 15px;                  
+      padding: 10px 20px;                  
       background: #e5e9e6;                 
       color: #a91e1e;                      
-      border: 1px solid #b2c4ba;
-      border-radius: 8px;
+      border: 2px solid #b2c4ba;
+      border-radius: 10px;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 12px;                     
-      font-weight: 700;
+      font-size: 16px;                     
+      font-weight: 800;
       cursor: pointer;
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش پنجم: لودینگ و خطاها
+       بخش پنجم: انیمیشن لودینگ و کادر خطا
        ────────────────────────────────────────────────────────── */
     #loading {
       display: none;                       
       text-align: center;
-      margin: 15px 0;
+      margin: 20px 0;
       color: var(--primary-color);         
-      font-weight: 700;
-      font-size: 15px;
+      font-weight: 900;
+      font-size: 22px;
     }
 
     .animated-dots span {
       display: inline-block;
       animation: realTimeDots 1.4s infinite both;       
-      font-size: 18px;                     
+      font-size: 26px;                     
     }
 
     @keyframes realTimeDots {
@@ -248,17 +269,17 @@
       display: none;
       background-color: var(--error-bg-color); 
       color: #ffffff;           
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 15px;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
       text-align: center;                  
-      border: 1.5px solid var(--accent-color); 
-      font-weight: 700;
-      font-size: 14px;                     
+      border: 2.5px solid var(--accent-color); 
+      font-weight: 800;
+      font-size: 20px;                     
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش ششم: جدول نتایج (کاملاً منظم و در سایز اپلیکیشن)
+       بخش ششم: احیای کامل افکت‌های کلیک، حرکت ماوس و انیمیشن جدول
        ────────────────────────────────────────────────────────── */
     #resultPage {
       display: none;                       
@@ -266,55 +287,113 @@
 
     .table-title {
       color: var(--primary-color);
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      border-bottom: 2px solid var(--accent-color); 
-      padding-bottom: 5px;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      border-bottom: 3px solid var(--accent-color); 
+      padding-bottom: 8px;
       display: inline-block;
     }
 
     .luxury-table {
       width: 100%;
       border-collapse: separate;           
-      border-spacing: 0 6px;              /* فاصله ردیف‌ها کمتر شد تا شیک‌تر شود */
-      margin-bottom: 20px;
+      border-spacing: 0 10px;              
+      margin-bottom: 30px;
     }
 
-    .luxury-table tr:nth-child(even) td { background-color: #f8faf9; } 
-    .luxury-table tr:nth-child(odd) td { background-color: #f1f5f2; }  
+    /* استایل پایه‌ای ردیف‌ها و فعال‌سازی انیمیشن نرم */
+    .luxury-table tr {
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+    }
+
+    .luxury-table tr:nth-child(even) td { background-color: #f5f8f6; } 
+    .luxury-table tr:nth-child(odd) td { background-color: #eaf0ec; }  
 
     .luxury-table tr td:first-child {
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+      border-right: 2px solid #cedbd3;
     }
 
     .luxury-table tr td:last-child {
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      border-left: 2px solid #cedbd3;
     }
 
-    /* ردیف‌های ۵ و ۶ از آخر (آبی شاهانه) */
+    /* افکت حرکت ماوس (Hover) - رنگ زیتونی طلایی لایت */
+    .luxury-table tr:hover td {
+      background-color: #F0EAD6 !important; 
+      color: #000000 !important;           
+    }
+
+    /* استایل ردیف‌های ۵ و ۶ از آخر (آبی شاهانه) */
     .luxury-table tr:nth-last-child(5) td,
     .luxury-table tr:nth-last-child(6) td {
       background-color: var(--important-row-bg) !important; 
       color: #ffffff !important;           
+      border-top: 1.5px dashed var(--accent-color);  
+      border-bottom: 1.5px dashed var(--accent-color);
+    }
+    
+    .luxury-table tr:nth-last-child(5) td:first-child,
+    .luxury-table tr:nth-last-child(6) td:first-child {
+      border-right: 3px solid var(--accent-color) !important; 
+    }
+
+    .luxury-table tr:nth-last-child(5) td:last-child,
+    .luxury-table tr:nth-last-child(6) td:last-child {
+      border-left: 3px solid var(--accent-color) !important;  
+    }
+
+    /* 💥 افکت فوق‌العاده کلیک و لمس (Active / Selected Row) 💥 */
+    .luxury-table tr:active td,
+    .luxury-table tr.selected-row td {
+      background-color: #543717 !important; /* قهوه‌ای لوکس و عمیق */
+      color: #ffffff !important;           
+      border-top: 3px solid var(--accent-color) !important;  
+      border-bottom: 3px solid var(--accent-color) !important;
+    }
+
+    .luxury-table tr:active td:first-child,
+    .luxury-table tr.selected-row td:first-child {
+      border-right: 4px solid var(--accent-color) !important;
+    }
+
+    .luxury-table tr:active td:last-child,
+    .luxury-table tr.selected-row td:last-child {
+      border-left: 4px solid var(--accent-color) !important;
+    }
+
+    /* انیمیشن بزرگ شدن ردیف کلیک شده و هاله نوری دور آن */
+    .luxury-table tr:active,
+    .luxury-table tr.selected-row {
+      box-shadow: 0 8px 20px rgba(84, 55, 23, 0.35), 0 0 12px rgba(194, 153, 27, 0.6);
+      transform: scale(1.015);              
     }
 
     .luxury-table td {
-      padding: 10px 8px !important;       /* پدینگ کوچک و منظم برای موبایل */
+      padding: 16px 12px !important;       
       font-family: 'Vazirmatn', sans-serif !important;
-      font-size: 14px !important;          /* فونت کاملاً خوانا و اندازه استاندارد کارنامه */
+      font-size: 18px !important;          /* اندازه فونت عالی و متناسب */
       font-weight: 700 !important; 
-      border-top: 1px solid #e2ece6;
-      border-bottom: 1px solid #e2ece6;
+      border-top: 1px solid #cedbd3;
+      border-bottom: 1px solid #cedbd3;
       text-align: center !important;       
+      transition: all 0.2s ease;
     }
 
     .td-header {
       background-color: var(--primary-color) !important; 
       color: #ffffff !important;           
       width: 50%;                          
+    }
+
+    .luxury-table tr:active .td-header,
+    .luxury-table tr.selected-row .td-header {
+      background-color: #543717 !important;
     }
 
     .luxury-table tr:nth-last-child(5) .td-header,
@@ -329,25 +408,55 @@
 
     .btn-back {
       width: 100%;
-      padding: 14px;                       
+      padding: 18px;                       
       background: linear-gradient(135deg, var(--btn-danger-bg), #7f1414); 
       color: #ffffff !important;           
-      border: 1.5px solid var(--accent-color); 
-      border-radius: 10px;                
+      border: 2px solid var(--accent-color); 
+      border-radius: 12px;                
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 16px;                     
-      font-weight: 700;
+      font-size: 20px;                     
+      font-weight: 800;
       cursor: pointer;
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش هفتم: تنظیمات تکمیلی نمایشگرهای بسیار کوچک
+       بخش هفتم: بهینه‌سازی کامل نسخه موبایل (تغییر ساختار به عمودی)
        ────────────────────────────────────────────────────────── */
-    @media (max-width: 360px) {
-      .slogan-box { display: none !important; } /* حذف شعارها فقط در گوشی‌های بسیار کوچک قدیمی */
+    @media (max-width: 600px) {
+      body { padding: 0; align-items: flex-start; }
+
+      .container {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;                 
+        border-radius: 0;                  
+        border-top: 25px solid var(--primary-color);
+        border-bottom: 25px solid var(--primary-color);
+        border-right: 10px solid var(--accent-color); 
+        border-left: 10px solid var(--accent-color);
+        outline-offset: -5px;
+        padding: 12px 15px;      
+      }
+
+      /* مخفی کردن شعارهای عریض در موبایل برای جلوگیری از به هم ریختگی */
+      .slogan-box { display: none !important; }
       .logo-center-container { width: 100% !important; }
-      .header-table-box h2 { font-size: 28px; }
-      .luxury-table td { font-size: 13px !important; padding: 8px 4px !important; }
+
+      .logo-img { width: 130px; height: 130px; }       
+      .header-table-box { padding: 12px 10px; margin-bottom: 20px; }
+      .header-table-box h2 { font-size: 34px; }        
+      
+      .form-group { padding: 20px 15px; gap: 15px; }
+      label { font-size: 16px; }
+      input { padding: 12px; font-size: 18px; }
+      
+      .btn-search, .btn-back, .btn-clear { padding: 14px; font-size: 18px; }
+      .table-title { font-size: 16px; }
+      
+      /* تنظیم اندازه کاملاً هماهنگ فونت‌های جدول در موبایل */
+      .luxury-table td { padding: 12px 6px !important; font-size: 14px !important; } 
+      #error-msg { font-size: 15px; padding: 12px; }
     }
   </style>
 </head>
@@ -359,7 +468,7 @@
       <tr>
         <td class="slogan-box">علم د مؤمن تر ټولو ستره شتمني ده</td>
         <td class="logo-center-container">
-          <img src="https://i.postimg.cc/HWVf6r64/mhmdy-mdrsh.png" alt="د محمدي مدرسې لوګو" class="logo-img">
+          <img src="https://i.postimg.cc/HWVf6r64/mhmdy-mdrsh.png" alt="د محمدی مدرسې لوګو" class="logo-img">
         </td>
         <td class="slogan-box">د زده کوونکو بریا زموږ هیله ده</td>
       </tr>
@@ -473,7 +582,8 @@
           
           var tableHTML = '';
           response.data.forEach(function(item) {
-            tableHTML += '<tr>' +
+            // اضافه کردن تابع کلیک به ردیف‌ها برای فعال شدن کلاس انتخاب رنگ اختصاصی
+            tableHTML += '<tr onclick="selectRow(this)">' +
                            '<td class="td-header">' + item.header + '</td>' + 
                            '<td class="td-value">' + item.value + '</td>' +   
                          '</tr>';
@@ -491,6 +601,15 @@
         errorMsg.style.display = 'block';
         console.error(err);
       }); 
+    }
+
+    // تابع مدیریت افکت کلیک روی ردیف‌ها
+    function selectRow(row) {
+      var rows = document.querySelectorAll('.luxury-table tr');
+      rows.forEach(function(r) {
+        r.classList.remove('selected-row');
+      });
+      row.classList.add('selected-row');
     }
 
     function goBackToSearch() {
