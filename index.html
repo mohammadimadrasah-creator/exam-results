@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>د محمدي مدرسې د زده کونکو د څلور میاشتینۍ آزموینې پایله</title>
+  
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ──────────────────────────────────────────────────────────
+       بخش اول: مرکز کنترل رنگ‌ها و متغیرهای اصلی قالب
+       شما می‌توانید کدهای رنگی زیر را به دلخواه خود تغییر دهید.
+       ────────────────────────────────────────────────────────── */
+    :root {
+      --primary-color: #06261f;     /* رنگ اصلی: سبز تیره اسلامی (چوکات‌ها و هدر جدول) */
+      --secondary-color: #06261f;   /* رنگ ثانویه: هماهنگ با رنگ اصلی برای یکدستی کامل چوکات */
+      --accent-color: #c2991b;      /* رنگ تاکید: طلایی درخشان (خطوط مرزی و باکس‌های تبلیغاتی شعار) */
+      --bg-color: #edf2ee;          /* رنگ پس‌زمینه کل صفحه: سبز بسیار ملایم */
+      --card-bg: #ffffff;           /* رنگ پس‌زمینه باکس اصلی کارنامه: سفید خالص */
+      --text-color: #1a252f;        /* رنگ نوشته‌های عمومی: سرمه‌ای بسیار تیره */
+      --important-row-bg: #0f3d59;  /* رنگ اختصاصی ردیف‌های ۵ و ۶ از آخر جدول: آبی شاهانه لوکس */
+      --btn-danger-bg: #a91e1e;     /* رنگ پس‌زمینه دکمه خروج: قرمز تیز و اخطار دهنده */
+      --error-bg-color: #d32f2f;    /* رنگ سرخ پخته و جذاب برای پس‌زمینه کادر خطا */
+    }
+
+    /* حذف فاصله‌های اضافی بیرونی و داخلی پیش‌فرض مرورگرها */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* استایل پس‌زمینه کل صفحه و ساختار شبکه نقطه‌چین طلایی */
+    body {
+      font-family: 'Vazirmatn', sans-serif; 
+      background-color: var(--bg-color);   
+      min-height: 100vh;                   
+      display: flex;                       
+      justify-content: center;             
+      align-items: center;                 
+      padding: 25px;                       
+      background-image: radial-gradient(rgba(194, 153, 27, 0.15) 1px, transparent 1px), 
+                        radial-gradient(rgba(194, 153, 27, 0.15) 1px, var(--bg-color) 1px);
+      background-size: 24px 24px;          
+      background-position: 0 0, 12px 12px;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش دوم: چوکات لوکس و باکس اصلی کارنامه (Container)
+       ────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 960px;                    
+      background: var(--card-bg);          
+      border-radius: 30px;                 
+      box-shadow: 
+        0 10px 30px rgba(6, 38, 31, 0.05),
+        0 30px 70px rgba(6, 38, 31, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      
+      /* تنظیم ضخامت چوکات‌های اصلی بالا و پایین صفحه (۳۰ پیکسل سبز تیره) */
+      border-top: 30px solid var(--primary-color);
+      border-bottom: 30px solid var(--primary-color);
+      
+      /* تنظیم ضخامت خطوط طلایی سمت راست و چپ (۶ پیکسل طلایی) */
+      border-right: 6px solid var(--accent-color);
+      border-left: 6px solid var(--accent-color);
+      
+      outline: 2px solid var(--primary-color);
+      outline-offset: -8px;                
+      
+      /* پدینگ کانتینر (فاصله از بالا به ۵ پیکسل کاهش یافته تا فاصله لوپو بسیار کم شود) */
+      padding: 5px 50px 30px 50px;                  
+      transition: all 0.4s ease;           
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش اصلاح شده: جدول ۳ کالمي لوکس هدر با انیمیشن اسلامی و لوکس
+       ────────────────────────────────────────────────────────── */
+    .header-layout-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 5px 0 5px 0;                 /* فاصله بسیار کم ۵ پیکسلی از بالا و پایین */
+    }
+
+    .header-layout-table td {
+      border: none !important;             
+      background: transparent !important;   
+      padding: 0 !important;               
+      vertical-align: middle !important;   /* تراز عمودی کاملاً دقیق در مرکز */
+    }
+
+   /* باکس‌های شعار تبلیغاتی با فونت اصیل و شاهکار امیری */
+    .slogan-box {
+      width: 32%;                          
+      padding: 15px 10px !important;
+      background: linear-gradient(135deg, #ffffff, #f4f7f5) !important; 
+      border: 4px double var(--accent-color) !important; 
+      border-radius: 8px;                  
+      text-align: center;
+
+      /* ──────────────────────────────────────────────────────────
+         اعمال فونت امیری و تنظیم اندازه بزرگ و ضخیم برای شعار
+         ────────────────────────────────────────────────────────── */
+      font-family: 'Amiri', serif;         /* فونت به امیری قرآنی تغییر یافت */
+      font-size: 40px;                     /* چون فونت امیری کمی ظریف است، سایز را به ۲۸ بزرگتر کردیم */
+      font-weight: 700;                    /* فعال کردن حالت ضخیم (Bold) فونت امیری */
+      
+      color: var(--primary-color);         
+      line-height: 1.4 !important;
+      animation: islamicGlow 3s infinite ease-in-out;
+    }
+
+    /*定义 انیمیشن پالس و هاله نورانی طلایی بسیار ملایم و لوکس */
+    @keyframes islamicGlow {
+      0%, 100% {
+        box-shadow: 0 4px 10px rgba(6, 38, 31, 0.05);
+        transform: scale(1);
+      }
+      50% {
+        /* ایجاد هاله نورانی طلایی زنده در اطراف چوکات */
+        box-shadow: 0 0 15px rgba(194, 153, 27, 0.4); 
+        transform: scale(1.02);             /* ۲ درصد بزرگتر شدن بسیار نرم برای جلب توجه */
+      }
+    }
+
+    /* کانتینر وسطی که لوگو بزرگ در آن قرار دارد */
+    .logo-center-container {
+      width: 36%;                          
+      text-align: center;
+    }
+
+    /* استایل بزرگتر و جذاب لوگو با فاصله‌های بسیار اندک */
+    .logo-img {
+      width: 260px;                        
+      height: 260px;                       
+      object-fit: contain;                 
+      filter: drop-shadow(0 8px 16px rgba(6, 38, 31, 0.18)); 
+      animation: logoFade 1s ease-in-out;  
+    }
+
+    @keyframes logoFade {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* باکس تیره رنگ حاوی متن اصلی عنوان کارنامه */
+    .header-table-box {
+      width: 100%;
+      margin: 0 0 35px 0;                  /* فاصله ۳۵ پیکسلی از زیر باکس هدر */
+      background: linear-gradient(135deg, var(--primary-color), #031411); 
+      border: 4px double var(--accent-color); 
+      border-radius: 14px;                 
+      padding: 22px 25px;                  
+      text-align: center;                  
+      box-shadow: 0 10px 20px rgba(6, 38, 31, 0.25);
+    }
+
+    .header-table-box h2 {
+      font-family: 'Jomhuria', serif;
+      color: var(--accent-color);          
+      margin: 0;
+      font-size: 62px;                     
+      font-weight: 400;
+      line-height: 1.1;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
+    }
+
+    .header-table-box .sub-title {
+      color: #ffffff;                      
+      font-size: 18px;                     
+      font-weight: 600;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش چهارم: فرم ورودی‌ها و دکمه‌های صفحه اول (جستجو)
+       ────────────────────────────────────────────────────────── */
+    #searchPage {
+      display: block;                      
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;                           
+      margin-bottom: 35px;
+      background: #f7f9f7;                 
+      padding: 45px 45px; 
+      border-radius: 16px;
+      border: 2px solid #dce5df;           
+    }
+
+    .input-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 26px;                     
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 12px;                 
+      text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.05);
+    }
+
+    input {
+      padding: 20px 25px;                  
+      border: 4px solid #b2c4ba;           
+      border-radius: 15px;                 
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 26px;                     
+      outline: none;
+      transition: all 0.3s ease;
+      text-align: center;                  
+      background-color: #ffffff;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    input:focus {
+      border-color: var(--accent-color);    
+      box-shadow: 0 0 15px rgba(194, 153, 27, 0.3); 
+      background-color: #fffdf7;           
+    }
+
+    .hint-text {
+      font-size: 17px;
+      color: #5c6a62;
+      margin-top: 8px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* کانتینر دکمه‌ها برای قرارگیری دکمه جستجو و دکمه جدید پاک‌کننده در کنار هم */
+    .search-buttons-wrapper {
+      display: flex;
+      gap: 15px;                           /* فاصله ۱۵ پیکسلی بین دو دکمه */
+      width: 100%;
+    }
+
+    /* دکمه جستجو (پلټنه) دوباره به حالت اول برگشته و کل عرض را می‌گیرد */
+    .btn-search {
+      width: 100%;
+      padding: 24px;
+      background: linear-gradient(135deg, var(--primary-color), #0b4237); 
+      color: white;                        
+      border: 2px solid var(--accent-color); 
+      border-radius: 12px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 27px; 
+      font-weight: 800;
+      cursor: pointer;                     
+      transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 8px 20px rgba(6, 38, 31, 0.3);
+      margin-top: 15px;                    /* ایجاد فاصله از دکمه پاک‌کننده بالایی */
+    }
+
+    .btn-search:hover {
+      background: linear-gradient(135deg, #0b4237, var(--primary-color));
+      transform: translateY(-2px);         
+      box-shadow: 0 12px 25px rgba(6, 38, 31, 0.4);
+    }
+
+    /* استایل دکمه جدید پاک‌کننده (دقیقاً هم‌اندازه متن، ظریف و در مرکز) */
+    .btn-clear-wrapper {
+      display: flex;
+      justify-content: center;             /* قرار دادن دکمه در وسط صفحه */
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn-clear {
+      display: inline-block;
+      padding: 12px 25px;                  /* پدینگ کمتر برای کوچک و ظریف شدن دکمه */
+      background: #e5e9e6;                 
+      color: #a91e1e;                      
+      border: 2px solid #b2c4ba;
+      border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 18px;                     /* سایز فونت متناسب برای دکمه کوچک */
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .btn-clear:hover {
+      background: #ced5d0;                 
+      color: #7f1414;
+    }
+
+    .btn-clear:active {
+      transform: scale(0.95);
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش پنجم: انیمیشن‌های لودینگ زنده و متحرک
+       ────────────────────────────────────────────────────────── */
+    #loading {
+      display: none;                       
+      text-align: center;
+      margin: 30px 0;
+      color: var(--primary-color);         
+      font-weight: 900;
+      font-size: 26px;
+      animation: textPulse 1.8s infinite ease-in-out; 
+    }
+
+    @keyframes textPulse {
+      0%, 100% { opacity: 0.5; transform: scale(0.98); } 
+      50% { opacity: 1; transform: scale(1); }           
+    }
+
+    .animated-dots span {
+      display: inline-block;
+      animation: realTimeDots 1.4s infinite both;       
+      font-size: 32px;                     
+      line-height: 1;
+    }
+
+    .animated-dots span:nth-child(1) { animation-delay: 0s; }   
+    .animated-dots span:nth-child(2) { animation-delay: 0.2s; } 
+    .animated-dots span:nth-child(3) { animation-delay: 0.4s; } 
+
+    @keyframes realTimeDots {
+      0% { opacity: 0; transform: translateY(2px); }     
+      50% { opacity: 1; transform: translateY(-2px); }   
+      100% { opacity: 0; transform: translateY(2px); }   
+    }
+
+    /* کادر اعلان خطاها (سرخ پخته، متن سفید، وسط‌چین در تمام زوم‌ها) */
+    #error-msg {
+      display: none;
+      background-color: var(--error-bg-color); 
+      color: #ffffff !important;           
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: center;                  
+      border: 3px solid var(--accent-color); 
+      font-weight: 800;
+      font-size: 23px;                     
+      box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4); 
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش ششم: جدول نتایج و کارنامه نهایی
+       ────────────────────────────────────────────────────────── */
+    #resultPage {
+      display: none;                       
+      animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: scale(0.96) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .table-title {
+      color: var(--primary-color);
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 30px;
+      border-bottom: 4px solid var(--accent-color); 
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    .luxury-table {
+      width: 100%;
+      border-collapse: separate;           
+      border-spacing: 0 12px;              
+      margin-bottom: 40px;
+    }
+
+    .luxury-table tr {
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+    }
+
+    .luxury-table tr:nth-child(even) td { background-color: #f5f8f6; } 
+    .luxury-table tr:nth-child(odd) td { background-color: #eaf0ec; }  
+
+    .luxury-table tr td:first-child {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      border-right: 2px solid #cedbd3;
+    }
+
+    .luxury-table tr td:last-child {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      border-left: 2px solid #cedbd3;
+    }
+
+    .luxury-table tr:hover td {
+      background-color: #F0EAD6 !important; 
+      color: #000000 !important;           
+    }
+
+    /* متمایز کردن ردیف‌های ۵ و ۶ از آخر جدول با رنگ آبی شاهانه لوکس */
+    .luxury-table tr:nth-last-child(5) td,
+    .luxury-table tr:nth-last-child(6) td {
+      background-color: var(--important-row-bg) !important; 
+      color: #ffffff !important;           
+      border-top: 2px dashed var(--accent-color);  
+      border-bottom: 2px dashed var(--accent-color);
+    }
+    
+    .luxury-table tr:nth-last-child(5) td:first-child,
+    .luxury-table tr:nth-last-child(6) td:first-child {
+      border-right: 4px solid var(--accent-color) !important; 
+    }
+
+    .luxury-table tr:nth-last-child(5) td:last-child,
+    .luxury-table tr:nth-last-child(6) td:last-child {
+      border-left: 4px solid var(--accent-color) !important;  
+    }
+
+    /* حالت کلیک روی ردیف‌ها (قهوه‌ای عمق‌دار و خطوط نوری طلایی) */
+    .luxury-table tr:active td,
+    .luxury-table tr.selected-row td {
+      background-color: #543717 !important; 
+      color: #ffffff !important;           
+      border-top: 4px solid var(--accent-color) !important;  
+      border-bottom: 4px solid var(--accent-color) !important;
+    }
+
+    .luxury-table tr:active td:first-child,
+    .luxury-table tr.selected-row td:first-child {
+      border-right: 4px solid var(--accent-color) !important;
+    }
+
+    .luxury-table tr:active td:last-child,
+    .luxury-table tr.selected-row td:last-child {
+      border-left: 4px solid var(--accent-color) !important;
+    }
+
+    .luxury-table tr:active,
+    .luxury-table tr.selected-row {
+      box-shadow: 0 10px 25px rgba(84, 55, 23, 0.4), 0 0 15px rgba(194, 153, 27, 0.7);
+      transform: scale(1.02);              
+    }
+
+    .luxury-table td {
+      padding: 24px 15px !important;       
+      font-family: 'Vazirmatn', sans-serif !important;
+      font-size: 28px !important;          
+      font-weight: 700 !important; 
+      border-top: 1.5px solid #cedbd3;
+      border-bottom: 1.5px solid #cedbd3;
+      white-space: normal !important;      
+      word-break: normal !important; 
+      line-height: 1.6 !important; 
+      text-align: center !important;       
+      box-sizing: border-box !important;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .td-header {
+      background-color: var(--primary-color) !important; 
+      color: #ffffff !important;           
+      font-weight: 900 !important; 
+      width: 55%;                          
+    }
+
+    .luxury-table tr:active .td-header,
+    .luxury-table tr.selected-row .td-header {
+      background-color: #543717 !important;
+    }
+
+    .luxury-table tr:nth-last-child(5) .td-header,
+    .luxury-table tr:nth-last-child(6) .td-header {
+      background-color: #0b2e45 !important; 
+    }
+
+    .td-value {
+      color: #031411;                      
+      font-weight: 900 !important; 
+    }
+
+    /* دکمه بازگشت و خروج نوین قرمز رنگ */
+    .btn-back {
+      width: 100%;
+      padding: 26px;                       
+      background: linear-gradient(135deg, var(--btn-danger-bg), #7f1414); 
+      color: #ffffff !important;           
+      border: 3px solid var(--accent-color); 
+      border-radius: 15px;                
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 28px;                     
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 15px rgba(169, 30, 30, 0.35); 
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3); 
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(135deg, #7f1414, var(--btn-danger-bg));
+      transform: translateY(-2px);         
+      box-shadow: 0 10px 20px rgba(169, 30, 30, 0.45);
+    }
+
+    .btn-back:active {
+      transform: scale(0.98);              
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       بخش هفتم: بهینه‌سازی کامل نسخه موبایل به صورت اتوماتیک
+       ────────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      body {
+        padding: 0; 
+        align-items: flex-start;           
+      }
+
+      .container {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;                 
+        border-radius: 0;                  
+        border-top: 30px solid var(--primary-color);
+        border-bottom: 30px solid var(--primary-color);
+        border-right: 12px solid var(--accent-color); 
+        border-left: 12px solid var(--accent-color);
+        outline: 2px solid var(--primary-color);
+        outline-offset: -5px;
+        padding: 10px 14px 25px 14px;      
+      }
+
+      /* مخفی کردن شعارهای کناری در نسخه موبایل جهت باز شدن جا برای لوگوی بزرگ */
+      .slogan-box {
+        display: none !important;
+      }
+      .logo-center-container {
+        width: 100% !important;
+      }
+
+      .header-layout-table { margin: 5px 0 5px 0; }
+      .logo-img { width: 190px; height: 190px; }       
+      .header-table-box { padding: 15px 10px; margin-bottom: 25px; }
+      .header-table-box h2 { font-size: 44px; }        
+      .form-group { padding: 35px 18px; gap: 25px; }
+      label { font-size: 22px; }
+      input { padding: 16px; font-size: 24px; }
+      .btn-search, .btn-back, .btn-clear { padding: 20px; font-size: 24px; }
+      .table-title { font-size: 24px; }
+      .luxury-table td { padding: 20px 8px !important; font-size: 24px !important; } 
+      #error-msg { font-size: 20px; padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <table class="header-layout-table">
+      <tr>
+        <td class="slogan-box">علم د مؤمن تر ټولو ستره شتمني ده</td>
+        
+        <td class="logo-center-container">
+          <img src="https://i.postimg.cc/HWVf6r64/mhmdy-mdrsh.png" alt="د محمدي مدرسې لوګو" class="logo-img">
+        </td>
+        
+        <td class="slogan-box">د زده کوونکو بریا زموږ هیله ده</td>
+      </tr>
+    </table>
+
+    <div class="header-table-box">
+      <h2>د محمدي مدرسې د زده کونکو د څلور میاشتینۍ آزموینې پایله</h2>
+      <div class="sub-title">❖ د زده کوونکو د څلورو میاشتو د فعالیت او آزموینو نمرات په پوره دقت سره ورقړل شوي دي ❖</div>
+    </div>
+
+    <div id="error-msg"></div>
+
+    <div id="searchPage">
+      <div class="form-group">
+        <div class="input-box">
+          <label for="basisNum">د زده کونکي اساس شمیره:</label>
+          <input type="text" id="basisNum" placeholder="مثلاً: 1234" onkeydown="handleBasisEnter(event)" required>
+          <div class="hint-text">اساس شمېره په انګلیسي ژبه باندې ولیکئ</div>
+        </div>
+        <div class="input-box">
+          <label for="studentCode">د زده کونکي پسورډ یا کوډ په دقت سره ولیکئ:</label>
+          <input type="password" id="studentCode" placeholder="••••••" maxlength="6" onkeydown="handleCodeEnter(event)" required>
+        </div>
+      </div>
+
+      <div class="btn-clear-wrapper">
+        <button class="btn-clear" onclick="clearFormFields()">لیکل شوي معلومات پاک کول</button>
+      </div>
+
+      <button class="btn-search" onclick="getStudentInfo()">پلټنه او د نمراتو ښودل</button>
+      
+      <div id="loading">
+        ❖ د معلوماتو د لټون په حال کې<span class="animated-dots"><span>.</span><span>.</span><span>.</span></span>
+      </div>
+    </div>
+
+    <div id="resultPage">
+      <div class="table-title">❖ د زده کونکي مشخصات او د آزموینې نمرات ❖</div>
+      <table class="luxury-table" id="detailsTable">
+      </table>
+      <button class="btn-back" onclick="goBackToSearch()">له دې صفحې څخه وتل</button>
+    </div>
+
+  </div>
+
+  <script>
+    // انتقال اتوماتیک فوکوس کیبورد از فیلد اساس نمبر به پسورد در صورت زدن کلید اینتر
+    function handleBasisEnter(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); 
+        document.getElementById('studentCode').focus(); 
+      }
+    }
+
+    // شروع اتوماتیک عملیات جستجو در کادر پسورد در صورت زدن کلید اینتر
+    function handleCodeEnter(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        getStudentInfo(); 
+      }
+    }
+
+    // تابع جدید دکمه ریست جهت پاک کردن سریع کادرهای نوشته شده
+    function clearFormFields() {
+      document.getElementById('basisNum').value = '';
+      document.getElementById('studentCode').value = '';
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('basisNum').focus(); // قرارگیری مجدد نشانگر تایپ روی کادر اول
+    }
+
+    // تابع اصلی ارتباط با سرور گوگل شیت از طریق گیت‌هاب (بازنویسی شده برای متد Fetch و API)
+    function getStudentInfo() {
+      var basisNum = document.getElementById('basisNum').value.trim();
+      var studentCode = document.getElementById('studentCode').value.trim();
+      
+      var errorMsg = document.getElementById('error-msg');
+      var loading = document.getElementById('loading');
+      var searchPage = document.getElementById('searchPage');
+      var resultPage = document.getElementById('resultPage');
+      var table = document.getElementById('detailsTable');
+
+      errorMsg.style.display = 'none';
+      table.innerHTML = '';
+
+      // شرط بررسی خالی بودن کادرها
+      if (!basisNum || !studentCode) {
+        errorMsg.innerText = 'هیله کیږي چې د زده کونکي اساس شمیره او کوډ دواړه دننه کړئ.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      loading.style.display = 'block';
+
+      // لینک دیپلوی جدید (Web App URL) که فرستادید دقیقاً در این بخش متصل شده است
+      var webAppUrl = "https://script.google.com/macros/s/AKfycbwfr53cS_A8nz7hEGEF5l3oc3m6dHO0ul0CIQumAMNKY4pJ1Qv19aYum0AsS3tvxB3LYw/exec";
+
+      // ارسال درخواست امن به سرور گوگل شیت
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          basisNumber: basisNum,
+          studentCode: studentCode
+        })
+      })
+      .then(function(res) {
+        return res.json();
+      })
+      .then(function(response) {
+        loading.style.display = 'none'; 
+        
+        if (response.success) {
+          searchPage.style.display = 'none';
+          
+          var tableHTML = '';
+          response.data.forEach(function(item) {
+            tableHTML += '<tr onclick="selectRow(this)">' +
+                           '<td class="td-header">' + item.header + '</td>' + 
+                           '<td class="td-value">' + item.value + '</td>' +   
+                         '</tr>';
+          });
+          table.innerHTML = tableHTML; 
+          resultPage.style.display = 'block'; 
+        } else {
+          // نمایش پیغام خطا در صورت پیدا نشدن اساس نمبر یا اشتباه بودن رمز
+          errorMsg.innerText = response.message;
+          errorMsg.style.display = 'block';
+        }
+      })
+      .catch(function(err) {
+        loading.style.display = 'none';
+        errorMsg.innerText = 'له سرور سره په اړیکه کې ستونزه رامنځته شوه. بیا هڅه وکړئ.';
+        errorMsg.style.display = 'block';
+        console.error(err);
+      }); 
+    }
+
+    // مدیریت افکت کلیک روی ردیف‌های جدول کارنامه
+    function selectRow(row) {
+      var rows = document.querySelectorAll('.luxury-table tr');
+      rows.forEach(function(r) {
+        r.classList.remove('selected-row');
+      });
+      row.classList.add('selected-row');
+    }
+
+    // بازگشت به صفحه اول جستجو و پاکسازی اطلاعات قبلی
+    function goBackToSearch() {
+      document.getElementById('resultPage').style.display = 'none'; 
+      document.getElementById('basisNum').value = '';              
+      document.getElementById('studentCode').value = '';            
+      document.getElementById('searchPage').style.display = 'block'; 
+      document.getElementById('basisNum').focus();                  
+    }
+  </script>
+
+</body>
+</html>
