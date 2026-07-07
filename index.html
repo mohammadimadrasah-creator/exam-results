@@ -458,6 +458,14 @@
       .luxury-table td { padding: 12px 6px !important; font-size: 14px !important; } 
       #error-msg, #result-page-msg { font-size: 15px; padding: 12px; }
     }
+
+    /* افکت کلیک حرفه‌ای و ماندگار روی ردیف‌ها */
+    .selected-row td {
+      background-color: #c2991b !important; /* تغییر رنگ پس‌زمینه به طلایی مدرسه‌ای هنگام کلیک */
+      color: #ffffff !important;            /* سفید شدن متن برای خوانایی بهتر */
+      transform: scale(0.99);               /* ایجاد حالت فشرده شدن خفیف و طبیعی */
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2); 
+    }
   </style>
 </head>
 <body>
@@ -517,7 +525,7 @@
       </table>
       
       <div class="ae-submission-box">
-        <label for="aeText">خپل ارزښتمند نظریات لاندې ولیکئ:</label>
+        <label for="aeText">خپل ارزښتمند نظریات مو لاندې ولیکئ:</label>
         <textarea id="aeText" placeholder="خپل نظر دلته ولیکئ..."></textarea>
         <button class="btn-submit-text" onclick="submitToAEColumn()">د معلوماتو لیږل او ثبتول</button>
         <div id="loading-submit">
