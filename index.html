@@ -48,11 +48,11 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش دوم: چوکات هوشمند (در کامپیوتر بزرگ و افقی، در موبایل عمودی)
+       بخش دوم: چوکات هوشمند (افزایش عرض به ۱۲۰۰ پیکسل در کامپیوتر)
        ────────────────────────────────────────────────────────── */
     .container {
       width: 100%;
-      max-width: 960px;                    /* اندازه کامل و افقی برای کامپیوتر */
+      max-width: 1200px;                    /* عرض چوکات کامپیوتر برای افقی‌تر شدن بیشتر شد */
       background: var(--card-bg);          
       border-radius: 30px;                 
       box-shadow: 
@@ -72,7 +72,7 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش سوم: جدول هدر و شعارهای راست و چپ با انیمیشن طلایی
+       بخش سوم: جدول هدر و تنظیمات انیمیشن ماشین‌تحریر (Typewriter)
        ────────────────────────────────────────────────────────── */
     .header-layout-table {
       width: 100%;
@@ -88,7 +88,7 @@
     }
 
     .slogan-box {
-      width: 32%;                          
+      width: 33%;                          
       padding: 15px 10px !important;
       background: linear-gradient(135deg, #ffffff, #f4f7f5) !important; 
       border: 4px double var(--accent-color) !important; 
@@ -99,16 +99,43 @@
       font-weight: 700;                    
       color: var(--primary-color);         
       line-height: 1.4 !important;
-      animation: islamicGlow 3s infinite ease-in-out;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(6, 38, 31, 0.05);
     }
 
-    @keyframes islamicGlow {
-      0%, 100% { box-shadow: 0 4px 10px rgba(6, 38, 31, 0.05); transform: scale(1); }
-      50% { box-shadow: 0 0 15px rgba(194, 153, 27, 0.4); transform: scale(1.02); }
+    /* کانتینر داخلی متون متحرک برای افکت ماشین‌تحریر */
+    .typewriter-text {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-left: 2px solid var(--accent-color); /* خط چشمک‌زن تایپ */
+    }
+
+    /* اعمال انیمیشن تایپ حرفه‌ای با ۵ ثانیه استراحت */
+    .slogan-right .typewriter-text {
+      animation: typingRight 9s steps(30, end) infinite;
+    }
+
+    .slogan-left .typewriter-text {
+      animation: typingLeft 9s steps(30, end) infinite;
+    }
+
+    /* انیمیشن تایپ شعار سمت راست (مدت کل ۹ ثانیه: ۴ ثانیه تایپ + ۵ ثانیه مکث) */
+    @keyframes typingRight {
+      0% { width: 0; }
+      44.4% { width: 100%; border-left-color: var(--accent-color); } /* اتمام تایپ در ثانیه ۴ */
+      100% { width: 100%; border-left-color: transparent; }          /* ۵ ثانیه مکث تا پایان ثانیه ۹ */
+    }
+
+    /* انیمیشن تایپ شعار سمت چپ (مدت کل ۹ ثانیه: ۴ ثانیه تایپ + ۵ ثانیه مکث) */
+    @keyframes typingLeft {
+      0% { width: 0; }
+      44.4% { width: 100%; border-left-color: var(--accent-color); } /* اتمام تایپ در ثانیه ۴ */
+      100% { width: 100%; border-left-color: transparent; }          /* ۵ ثانیه مکث تا پایان ثانیه ۹ */
     }
 
     .logo-center-container {
-      width: 36%;                          
+      width: 34%;                          
       text-align: center;
     }
 
@@ -279,7 +306,7 @@
     }
 
     /* ──────────────────────────────────────────────────────────
-       بخش ششم: احیای کامل افکت‌های کلیک، حرکت ماوس و انیمیشن جدول
+       بخش ششم: افکت‌های کلیک، حرکت ماوس و انیمیشن جدول دوقلو
        ────────────────────────────────────────────────────────── */
     #resultPage {
       display: none;                       
@@ -302,7 +329,6 @@
       margin-bottom: 30px;
     }
 
-    /* استایل پایه‌ای ردیف‌ها و فعال‌سازی انیمیشن نرم */
     .luxury-table tr {
       transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
       cursor: pointer;
@@ -323,7 +349,7 @@
       border-left: 2px solid #cedbd3;
     }
 
-    /* افکت حرکت ماوس (Hover) - رنگ زیتونی طلایی لایت */
+    /* افکت حرکت ماوس (Hover) */
     .luxury-table tr:hover td {
       background-color: #F0EAD6 !important; 
       color: #000000 !important;           
@@ -348,10 +374,10 @@
       border-left: 3px solid var(--accent-color) !important;  
     }
 
-    /* 💥 افکت فوق‌العاده کلیک و لمس (Active / Selected Row) 💥 */
+    /* افکت فوق‌العاده کلیک و لمس روی ردیف‌ها */
     .luxury-table tr:active td,
     .luxury-table tr.selected-row td {
-      background-color: #543717 !important; /* قهوه‌ای لوکس و عمیق */
+      background-color: #543717 !important; 
       color: #ffffff !important;           
       border-top: 3px solid var(--accent-color) !important;  
       border-bottom: 3px solid var(--accent-color) !important;
@@ -367,7 +393,6 @@
       border-left: 4px solid var(--accent-color) !important;
     }
 
-    /* انیمیشن بزرگ شدن ردیف کلیک شده و هاله نوری دور آن */
     .luxury-table tr:active,
     .luxury-table tr.selected-row {
       box-shadow: 0 8px 20px rgba(84, 55, 23, 0.35), 0 0 12px rgba(194, 153, 27, 0.6);
@@ -377,7 +402,7 @@
     .luxury-table td {
       padding: 16px 12px !important;       
       font-family: 'Vazirmatn', sans-serif !important;
-      font-size: 18px !important;          /* اندازه فونت عالی و متناسب */
+      font-size: 18px !important;          
       font-weight: 700 !important; 
       border-top: 1px solid #cedbd3;
       border-bottom: 1px solid #cedbd3;
@@ -439,7 +464,7 @@
         padding: 12px 15px;      
       }
 
-      /* مخفی کردن شعارهای عریض در موبایل برای جلوگیری از به هم ریختگی */
+      /* مخفی کردن شعارهای عریض در موبایل جهت جلوگیری از به هم ریختگی قالب */
       .slogan-box { display: none !important; }
       .logo-center-container { width: 100% !important; }
 
@@ -454,7 +479,6 @@
       .btn-search, .btn-back, .btn-clear { padding: 14px; font-size: 18px; }
       .table-title { font-size: 16px; }
       
-      /* تنظیم اندازه کاملاً هماهنگ فونت‌های جدول در موبایل */
       .luxury-table td { padding: 12px 6px !important; font-size: 14px !important; } 
       #error-msg { font-size: 15px; padding: 12px; }
     }
@@ -466,17 +490,23 @@
     
     <table class="header-layout-table">
       <tr>
-        <td class="slogan-box">علم د مؤمن تر ټولو ستره شتمني ده</td>
+        <td class="slogan-box slogan-right">
+          <div class="typewriter-text">علم د مؤمن تر ټولو ستره شتمني ده</div>
+        </td>
+        
         <td class="logo-center-container">
           <img src="https://i.postimg.cc/HWVf6r64/mhmdy-mdrsh.png" alt="د محمدی مدرسې لوګو" class="logo-img">
         </td>
-        <td class="slogan-box">د زده کوونکو بریا زموږ هیله ده</td>
+        
+        <td class="slogan-box slogan-left">
+          <div class="typewriter-text">د زده کوونکو بریا زموږ هیله ده</div>
+        </td>
       </tr>
     </table>
 
     <div class="header-table-box">
       <h2>د محمدي مدرسې د زده کونکو د څلور میاشتینۍ آزموینې پایله</h2>
-      <div class="sub-title">❖ د زده کوونکو د نمراتو سیستم ❖</div>
+      <div class="sub-title">❖ د زده کوونکو د فعالیت او آزموینو نمرات په پوره دقت سره ورقړل شوي دي ❖</div>
     </div>
 
     <div id="error-msg"></div>
@@ -529,6 +559,7 @@
       }
     }
 
+    // ریست فیلدها و مخفی‌سازی کادر خطا
     function clearFormFields() {
       document.getElementById('basisNum').value = '';
       document.getElementById('studentCode').value = '';
@@ -557,7 +588,7 @@
 
       loading.style.display = 'block';
 
-      // لینک وب‌اپ اختصاصی شما کاملاً بدون تغییر باقی مانده است
+      // اتصال کاملاً ایمن و بدون تغییر به لینک دیپلوی وب‌اپ شما
       var webAppUrl = "https://script.google.com/macros/s/AKfycbwfr53cS_A8nz7hEGEF5l3oc3m6dHO0ul0CIQumAMNKY4pJ1Qv19aYum0AsS3tvxB3LYw/exec";
 
       fetch(webAppUrl, {
@@ -582,7 +613,6 @@
           
           var tableHTML = '';
           response.data.forEach(function(item) {
-            // اضافه کردن تابع کلیک به ردیف‌ها برای فعال شدن کلاس انتخاب رنگ اختصاصی
             tableHTML += '<tr onclick="selectRow(this)">' +
                            '<td class="td-header">' + item.header + '</td>' + 
                            '<td class="td-value">' + item.value + '</td>' +   
@@ -603,7 +633,7 @@
       }); 
     }
 
-    // تابع مدیریت افکت کلیک روی ردیف‌ها
+    // تابع مدیریت افکت فعال کلیک و تغییر کلاس رنگ ردیف انتخاب شده
     function selectRow(row) {
       var rows = document.querySelectorAll('.luxury-table tr');
       rows.forEach(function(r) {
