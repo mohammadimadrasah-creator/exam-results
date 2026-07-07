@@ -88,55 +88,69 @@
     }
 
     .slogan-box {
-      width: 33%;                          
-      padding: 15px 10px !important;       /* فاصله‌های داخلی کمی بیشتر شد تا متن بزرگ بیرون نزند */
+      width: 32%;                          
+      padding: 10px 15px !important;
       background: linear-gradient(135deg, #ffffff, #f4f7f5) !important; 
       border: 4px double var(--accent-color) !important; 
-      border-radius: 8px;                  
-      text-align: center;
+      border-radius: 12px;                  
       font-family: 'Amiri', serif;         
-      font-size: 42px;                     /* ۱. اندازه فونت دو برابر بزرگ‌تر (دقیقاً ۴۲ پیکسل) */
+      font-size: 42px;                     /* اندازه فونت بزرگ و خوانا */
       font-weight: 700;                    
       color: var(--primary-color);         
       line-height: 1.4 !important;         
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(6, 38, 31, 0.05);
-      height: 150px;                       /* ارتفاع ثابت چوکات برای اینکه با آمدن خط دوم تکان نخورد */
-      display: flex;
+      
+      /* تنظیم فیکس و تراز شدن دقیق هر سه چوکات در وسط */
+      height: 160px;                       
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      vertical-align: middle;
     }
 
     /* کانتینر داخلی متون متحرک */
     .typewriter-text {
       display: inline-block;
-      white-space: normal;                 /* ۲. اجازه به متن برای شکستن و آمدن در دو خط */
+      white-space: normal;                 /* اجازه به متن برای شکستن در دو خط */
       word-wrap: break-word;
-      border-left: 3px solid var(--accent-color); /* خط چشمک‌زن لبه متن */
-      width: 0;                            /* شروع انیمیشن از عرض صفر */
-      max-height: 200px;
+      border-right: 3px solid var(--accent-color); /* خط چشمک‌زن لبه متن در سمت راست */
+      padding-right: 5px;
+      direction: rtl;                      /* شروع دقیق تایپ از سمت راست */
+      text-align: center;
+      max-width: 0;                        /* شروع از عرض صفر */
+      max-height: 140px;
+      overflow: hidden;
     }
 
-    /* اعمال انیمیشن تایپ جدید و منظم بدون فاصله‌های اضافی آخر */
+    /* اعمال انیمیشن تایپ حرف‌به‌حرف نرم و طبیعی */
     .slogan-right .typewriter-text {
-      animation: typingFix 9s steps(35, end) infinite, blinkCursor 0.6s step-end infinite;
+      animation: typingResponsive 8s linear infinite, blinkCursor 0.6s step-end infinite;
     }
 
     .slogan-left .typewriter-text {
-      animation: typingFix 9s steps(35, end) infinite, blinkCursor 0.6s step-end infinite;
+      animation: typingResponsive 8s linear infinite, blinkCursor 0.6s step-end infinite;
     }
 
-    /* ۳. انیمیشن هوشمند تایپ حرف‌به‌حرف (۴ ثانیه تایپ آرام + ۵ ثانیه مکث کامل بدون فاصله مرده) */
-    @keyframes typingFix {
-      0% { width: 0; }
-      44.4% { width: 100%; }               /* پایان کامل تایپ متن در ثانیه ۴ */
-      100% { width: 100%; }                /* حفظ حالت ۱۰۰٪ و ۵ ثانیه مکث کامل تا ثانیه ۹ */
+    /* انیمیشن هوشمند: تایپ حرف‌به‌حرف واقعی از راست به چپ + ۵ ثانیه مکث کامل */
+    @keyframes typingResponsive {
+      0% { max-width: 0; }
+      37.5% { max-width: 100%; border-right-color: var(--accent-color); } /* پایان تایپ در ثانیه ۳ (آرام و منظم) */
+      100% { max-width: 100%; border-right-color: transparent; }          /* ۵ ثانیه مکث کامل تا ثانیه ۸ */
     }
 
-    /* انیمیشن چشمک زدن خط تایپ در کنار متن */
+    /* انیمیشن چشمک زدن خط تایپ */
     @keyframes blinkCursor {
-      from, to { border-left-color: transparent }
-      50% { border-left-color: var(--accent-color); }
+      from, to { border-right-color: transparent }
+      50% { border-right-color: var(--accent-color); }
+    }
+
+    /* تراز کردن فیکس سه ستون جدول هدر برای ایجاد فاصله‌های مساوی */
+    .logo-center-container {
+      width: 36%;                          
+      text-align: center;
+      vertical-align: middle;
     }
     
     .logo-center-container {
