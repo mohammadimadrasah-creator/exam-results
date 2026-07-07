@@ -633,7 +633,7 @@
       
       if (!aeText) {
         msgBox.innerText = "هیله ده لومړی متن ولیکئ.";
-        msgBox.style.backgroundColor = var(--error-bg-color);
+        msgBox.style.backgroundColor = "#d32f2f";
         msgBox.style.display = "block";
         return;
       }
@@ -660,13 +660,13 @@
           msgBox.style.backgroundColor = "#2e7d32"; // رنگ سبز برای موفقیت
           document.getElementById('aeText').value = ''; // پاک کردن فیلد متن پس از ارسال
         } else {
-          msgBox.style.backgroundColor = var(--error-bg-color);
+          msgBox.style.backgroundColor = "#d32f2f";
         }
       })
       .catch(function(err) {
         loadingSubmit.style.display = "none";
         msgBox.innerText = "د معلوماتو په لیږلو کې تېروتنه رامنځته شوه.";
-        msgBox.style.backgroundColor = var(--error-bg-color);
+        msgBox.style.backgroundColor = "#d32f2f";
         msgBox.style.display = "block";
         console.error(err);
       });
