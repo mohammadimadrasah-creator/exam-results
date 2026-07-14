@@ -530,12 +530,12 @@
     <div id="searchPage" class="app-page page-active">
       <div class="form-group">
         <div class="input-box">
-          <label for="basisNum">د زده کونکي اساس شمیره:</label>
+          <label for="basisNum">د زده کونکي اساس شمیره ولیکئ:</label>
           <input type="text" id="basisNum" placeholder="مثلاً: 1234" onkeydown="handleBasisEnter(event)" required>
           <div class="hint-text">اساس شمېره په انګلیسي ژبه باندې ولیکئ</div>
         </div>
         <div class="input-box">
-          <label for="studentCode">د زده کونکي پسورډ یا کوډ:</label>
+          <label for="studentCode">شپږ رقمي پسورډ یا کوډ ولیکئ:</label>
           <input type="password" id="studentCode" placeholder="••••••" maxlength="6" onkeydown="handleCodeEnter(event)" required>
         </div>
       </div>
@@ -711,7 +711,7 @@
       
       // انتخاب آرایه دیتای کش شده بر اساس کلیک کاربر
       var targetData = (type === 'summary') ? cachedSummaryData : cachedFullData;
-      pageTitle.innerText = (type === 'summary') ? "❖ د زده کونکي د نمراتو خلاصه (Y تر AD) ❖" : "❖ د زده کونکي د نمراتو او مشخصاتو بشپړ تفصیل ❖";
+      pageTitle.innerText = (type === 'summary') ? "❖ د زده کونکي د نمراتو خلاصه ❖" : "❖ د زده کونکي د نمراتو او مشخصاتو بشپړ تفصیل ❖";
 
       if (targetData && targetData.length > 0) {
         targetData.forEach(function(item) {
