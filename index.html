@@ -12,18 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   
   <style>
-    /* ──────────────────────────────────────────────────────────
-       بخش اول: مرکز کنترل رنگ‌ها و متغیرهای اصلی قالب
-       ────────────────────────────────────────────────────────── */
     :root {
-      --primary-color: #06261f;     /* رنگ اصلی: سبز تیره اسلامی */
+      --primary-color: #06261f;     
       --secondary-color: #06261f;   
-      --accent-color: #c2991b;      /* رنگ تاکید: طلایی درخشان */
-      --bg-color: #edf2ee;          /* پس‌زمینه کل صفحه */
-      --card-bg: #ffffff;           /* پس‌زمینه باکس اصلی */
+      --accent-color: #c2991b;      
+      --bg-color: #edf2ee;          
+      --card-bg: #ffffff;           
       --text-color: #1a252f;        
-      --important-row-bg: #0f3d59;  /* رنگ ردیف‌های ۵ و ۶ از آخر (آبی شاهانه) */
-      --btn-danger-bg: #a91e1e;     /* رنگ دکمه خروج */
+      --important-row-bg: #0f3d59;  
+      --btn-danger-bg: #a91e1e;     
       --error-bg-color: #d32f2f;    
     }
 
@@ -47,9 +44,6 @@
       background-position: 0 0, 12px 12px;
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش دوم: چوکات هوشمند
-       ────────────────────────────────────────────────────────── */
     .container {
       width: 100%;
       max-width: 2100px;                    
@@ -71,9 +65,6 @@
       transition: all 0.4s ease;           
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش سوم: تنظیم فیکس و مهندسی شده هدر بدون چوکات
-       ────────────────────────────────────────────────────────── */
     .header-layout-table {
       width: 100%;
       border-collapse: collapse;
@@ -136,9 +127,6 @@
       filter: drop-shadow(0 8px 16px rgba(6, 38, 31, 0.18)); 
     }
 
-    /* ──────────────────────────────────────────────────────────
-       تنظیمات بدنه و استایل‌های عمومی قالب
-       ────────────────────────────────────────────────────────── */
     .header-table-box {
       width: 100%;
       margin: 0 0 30px 0;                  
@@ -296,7 +284,6 @@
       margin-bottom: 10px;
     }
 
-    /* استایل‌های بخش جدید منوی انتخاب نوع نمرات */
     #menuPage {
       display: none;
     }
@@ -446,9 +433,6 @@
       cursor: pointer;
     }
 
-    /* ──────────────────────────────────────────────────────────
-       بخش هفتم: بهینه‌سازی کامل نسخه موبایل
-       ────────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       body { padding: 0; align-items: flex-start; }
 
@@ -466,32 +450,18 @@
         padding: 12px 15px;      
       }
 
-      .header-layout-table {
-        display: table !important;
-      }
-      .slogan-box { 
-        display: table-cell !important; 
-        width: 35% !important;
-        vertical-align: middle !important;
-      }
-      .logo-center-container { 
-        display: table-cell !important;
-        width: 30% !important; 
-      }
-
+      .header-layout-table { display: table !important; }
+      .slogan-box { display: table-cell !important; width: 35% !important; vertical-align: middle !important; }
+      .logo-center-container { display: table-cell !important; width: 30% !important; }
       .logo-img { width: 100px; height: 100px; }       
       .typewriter-text { font-size: 15px !important; line-height: 1.3 !important; }
-
       .header-table-box { padding: 12px 10px; margin-bottom: 20px; }
       .header-table-box h2 { font-size: 34px; }        
-      
       .form-group, .ae-submission-box, .menu-group { padding: 20px 15px; gap: 15px; }
       label { font-size: 16px; }
       input, textarea { padding: 12px; font-size: 18px; }
-      
       .btn-search, .btn-back, .btn-clear, .btn-submit-text, .btn-menu-opt { padding: 14px; font-size: 18px; }
       .table-title { font-size: 16px; }
-      
       .luxury-table td { padding: 12px 6px !important; font-size: 14px !important; } 
       #error-msg, #result-page-msg { font-size: 15px; padding: 12px; }
     }
@@ -513,11 +483,9 @@
         <td class="slogan-box slogan-right">
           <div class="typewriter-text">علم د مؤمن تر ټولو<br>ستره شتمني ده</div>
         </td>
-        
         <td class="logo-center-container">
           <img src="https://i.postimg.cc/HWVf6r64/mhmdy-mdrsh.png" alt="د محمدی مدرسې لوګو" class="logo-img">
         </td>
-        
         <td class="slogan-box slogan-left">
           <div class="typewriter-text">د زده کوونکو بریا<br>زموږ هیله ده</div>
         </td>
@@ -586,7 +554,10 @@
   <script>
     var webAppUrl = "https://script.google.com/macros/s/AKfycby3ruJLC1atO5ywOwHFLOTkxS0wTvguhaHa1LzpZv0yySkSRQ98VwZDkzup2UkAhmTWSw/exec";
     var currentBasisNum = ""; 
-    var cachedResponseData = null; // برای ذخیره اطلاعات کل دانش‌آموز جهت سوئیچ سریع
+    
+    // حافظه کش کلاینت برای ذخیره همزمان هر دو وضعیت خلاصه و تفصیلی
+    var cachedSummaryData = null;
+    var cachedFullData = null;
 
     function handleBasisEnter(event) {
       if (event.key === 'Enter') {
@@ -607,9 +578,11 @@
       document.getElementById('studentCode').value = '';
       document.getElementById('error-msg').style.display = 'none';
       document.getElementById('basisNum').focus(); 
+      cachedSummaryData = null;
+      cachedFullData = null;
     }
 
-    // مرحله اول: تایید هویت و دریافت اطلاعات کامل برای کش کردن
+    // مرحله اول: دریافت یک‌باره کل اطلاعات و انتقال کاملاً آنی به صفحه انتخاب گزینه‌ها
     function getStudentInfo() {
       var basisNum = document.getElementById('basisNum').value.trim();
       var studentCode = document.getElementById('studentCode').value.trim();
@@ -632,7 +605,7 @@
       loading.style.display = 'block';
       currentBasisNum = basisNum; 
 
-      // در مرحله اول درخواست به صورت full فرستاده می‌شود تا کل دیتا دریافت و کش شود
+      // ارسال درخواست به بکند جهت دریافت و بسته‌بندی داده‌ها در حافظه مرورگر
       fetch(webAppUrl, {
         method: "POST",
         mode: "cors",
@@ -641,8 +614,7 @@
         },
         body: JSON.stringify({
           basisNumber: basisNum,
-          studentCode: studentCode,
-          viewType: "full" 
+          studentCode: studentCode
         })
       })
       .then(function(res) { return res.json(); })
@@ -650,9 +622,13 @@
         loading.style.display = 'none'; 
         
         if (response.success) {
-          cachedResponseData = response.data; // ذخیره اطلاعات در حافظه مرورگر
+          // ذخیره دائمی هر دو داده خلاصه و تفصیل در حافظه سریع مرورگر
+          cachedSummaryData = response.summaryData;
+          cachedFullData = response.fullData;
+          
+          // باز شدن صفحه دوم به صورت آنی
           searchPage.style.display = 'none';
-          menuPage.style.display = 'block'; // نمایش منوی انتخاب دو گزینه
+          menuPage.style.display = 'block'; 
         } else {
           errorMsg.innerText = response.message;
           errorMsg.style.display = 'block';
@@ -666,7 +642,7 @@
       }); 
     }
 
-    // مرحله دوم: رندر کردن جدول بر اساس دکمه کلیک شده (خلاصه یا تفصیل)
+    // مرحله دوم: رندر کاملاً آنی و در صدم ثانیه (بدون هیچ درخواستی به اینترنت و گوگل شیت)
     function loadMarksTable(type) {
       var menuPage = document.getElementById('menuPage');
       var resultPage = document.getElementById('resultPage');
@@ -675,47 +651,25 @@
       
       table.innerHTML = '';
       var tableHTML = '';
+      
+      // انتخاب آرایه دیتای کش شده بر اساس کلیک کاربر
+      var targetData = (type === 'summary') ? cachedSummaryData : cachedFullData;
+      pageTitle.innerText = (type === 'summary') ? "❖ د زده کونکي د نمراتو خلاصه (Y تر AD) ❖" : "❖ د زده کونکي د نمراتو او مشخصاتو بشپړ تفصیل ❖";
 
-      if (type === 'summary') {
-        pageTitle.innerText = "❖ د زده کونکي د نمراتو خلاصه (Y تر AD) ❖";
-        // فیلتر کردن کلاینت‌ساید برای امنیت و هماهنگی دقیق: ستون ۲۴ تا ۲۹ (Y تا AD)
-        // آرایه کل مشخصات را دوباره بر اساس بکند فیلتر یا لود می‌کنیم
-        fetch(webAppUrl, {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            basisNumber: currentBasisNum,
-            studentCode: document.getElementById('studentCode').value.trim(),
-            viewType: "summary"
-          })
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(response) {
-          if(response.success) {
-            response.data.forEach(function(item) {
-              tableHTML += '<tr onclick="selectRow(this)">' +
-                             '<td class="td-header">' + item.header + '</td>' + 
-                             '<td class="td-value">' + item.value + '</td>' +   
-                           '</tr>';
-            });
-            table.innerHTML = tableHTML;
-            menuPage.style.display = 'none';
-            resultPage.style.display = 'block';
-          }
-        });
-      } else {
-        // وضعیت تفصیلی (دقیقاً وضعیت قبلی سیستم بدون حذف هیچ ستونی)
-        pageTitle.innerText = "❖ د زده کونکي د نمراتو او مشخصاتو بشپړ تفصیل ❖";
-        cachedResponseData.forEach(function(item) {
+      if (targetData && targetData.length > 0) {
+        targetData.forEach(function(item) {
           tableHTML += '<tr onclick="selectRow(this)">' +
                          '<td class="td-header">' + item.header + '</td>' + 
                          '<td class="td-value">' + item.value + '</td>' +   
                        '</tr>';
         });
         table.innerHTML = tableHTML;
+        
+        // جابجایی صفحات بدون تاخیر
         menuPage.style.display = 'none';
         resultPage.style.display = 'block';
+      } else {
+        alert("د دې برخې لپاره معلومات شتون نلري.");
       }
     }
 
