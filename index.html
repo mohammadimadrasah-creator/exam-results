@@ -296,6 +296,44 @@
       margin-bottom: 10px;
     }
 
+    /* استایل‌های بخش جدید منوی انتخاب نوع نمرات */
+    #menuPage {
+      display: none;
+    }
+
+    .menu-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 25px;
+      background: #f7f9f7;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #dce5df;
+    }
+
+    .btn-menu-opt {
+      width: 100%;
+      padding: 22px;
+      background: linear-gradient(135deg, #114b3e, var(--primary-color));
+      color: #ffffff;
+      border: 3px solid var(--accent-color);
+      border-radius: 14px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(6, 38, 31, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .btn-menu-opt:hover {
+      background: linear-gradient(135deg, var(--accent-color), #a37f13);
+      color: #000000;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(194, 153, 27, 0.3);
+    }
+
     #resultPage {
       display: none;                       
     }
@@ -371,7 +409,6 @@
       color: #031411;                      
     }
 
-    /* استایل باکس جدید ستون AE در آخر جدول */
     .ae-submission-box {
       background: #f4f7f5;
       padding: 25px;
@@ -448,22 +485,21 @@
       .header-table-box { padding: 12px 10px; margin-bottom: 20px; }
       .header-table-box h2 { font-size: 34px; }        
       
-      .form-group, .ae-submission-box { padding: 20px 15px; gap: 15px; }
+      .form-group, .ae-submission-box, .menu-group { padding: 20px 15px; gap: 15px; }
       label { font-size: 16px; }
       input, textarea { padding: 12px; font-size: 18px; }
       
-      .btn-search, .btn-back, .btn-clear, .btn-submit-text { padding: 14px; font-size: 18px; }
+      .btn-search, .btn-back, .btn-clear, .btn-submit-text, .btn-menu-opt { padding: 14px; font-size: 18px; }
       .table-title { font-size: 16px; }
       
       .luxury-table td { padding: 12px 6px !important; font-size: 14px !important; } 
       #error-msg, #result-page-msg { font-size: 15px; padding: 12px; }
     }
 
-    /* افکت کلیک حرفه‌ای و ماندگار روی ردیف‌ها */
     .selected-row td {
-      background-color: #c2991b !important; /* تغییر رنگ پس‌زمینه به طلایی مدرسه‌ای هنگام کلیک */
-      color: #ffffff !important;            /* سفید شدن متن برای خوانایی بهتر */
-      transform: scale(0.99);               /* ایجاد حالت فشرده شدن خفیف و طبیعی */
+      background-color: #c2991b !important; 
+      color: #ffffff !important;           
+      transform: scale(0.99);               
       box-shadow: inset 0 0 10px rgba(0,0,0,0.2); 
     }
   </style>
@@ -519,8 +555,16 @@
       </div>
     </div>
 
+    <div id="menuPage">
+      <div class="menu-group">
+        <button class="btn-menu-opt" onclick="loadMarksTable('summary')">۱. د نمراتو خلاصه</button>
+        <button class="btn-menu-opt" onclick="loadMarksTable('full')">۲. د نمراتو تفصیل</button>
+      </div>
+      <button class="btn-back" onclick="goBackToSearch()">له دې صفحې څخه وتل</button>
+    </div>
+
     <div id="resultPage">
-      <div class="table-title">❖ د زده کونکي د لومړي فصل د ورځنۍ ارزونې او د آزموینې نمرات او مشخصات ❖</div>
+      <div class="table-title" id="pageTitle">❖ د زده کونکي نمرات او مشخصات ❖</div>
       <table class="luxury-table" id="detailsTable">
       </table>
       
@@ -534,15 +578,15 @@
         <div id="result-page-msg"></div>
       </div>
       
-      <button class="btn-back" onclick="goBackToSearch()">له دې صفحې څخه وتل</button>
+      <button class="btn-back" onclick="goBackToMenu()">مخکینۍ صفحې ته تګ</button>
     </div>
 
   </div>
 
   <script>
-    // لینک جدید دیپلوی گوگل اسکریپت شما
     var webAppUrl = "https://script.google.com/macros/s/AKfycby3ruJLC1atO5ywOwHFLOTkxS0wTvguhaHa1LzpZv0yySkSRQ98VwZDkzup2UkAhmTWSw/exec";
-    var currentBasisNum = ""; // ذخیره اساس نمبر فعال برای ارسال به AE
+    var currentBasisNum = ""; 
+    var cachedResponseData = null; // برای ذخیره اطلاعات کل دانش‌آموز جهت سوئیچ سریع
 
     function handleBasisEnter(event) {
       if (event.key === 'Enter') {
@@ -565,6 +609,7 @@
       document.getElementById('basisNum').focus(); 
     }
 
+    // مرحله اول: تایید هویت و دریافت اطلاعات کامل برای کش کردن
     function getStudentInfo() {
       var basisNum = document.getElementById('basisNum').value.trim();
       var studentCode = document.getElementById('studentCode').value.trim();
@@ -572,11 +617,9 @@
       var errorMsg = document.getElementById('error-msg');
       var loading = document.getElementById('loading');
       var searchPage = document.getElementById('searchPage');
-      var resultPage = document.getElementById('resultPage');
-      var table = document.getElementById('detailsTable');
+      var menuPage = document.getElementById('menuPage');
 
       errorMsg.style.display = 'none';
-      table.innerHTML = '';
       document.getElementById('aeText').value = ''; 
       document.getElementById('result-page-msg').style.display = 'none';
 
@@ -587,8 +630,9 @@
       }
 
       loading.style.display = 'block';
-      currentBasisNum = basisNum; // ذخیره اساس نمبر فعلی برای استفاده بعدی
+      currentBasisNum = basisNum; 
 
+      // در مرحله اول درخواست به صورت full فرستاده می‌شود تا کل دیتا دریافت و کش شود
       fetch(webAppUrl, {
         method: "POST",
         mode: "cors",
@@ -597,27 +641,18 @@
         },
         body: JSON.stringify({
           basisNumber: basisNum,
-          studentCode: studentCode
+          studentCode: studentCode,
+          viewType: "full" 
         })
       })
-      .then(function(res) {
-        return res.json();
-      })
+      .then(function(res) { return res.json(); })
       .then(function(response) {
         loading.style.display = 'none'; 
         
         if (response.success) {
+          cachedResponseData = response.data; // ذخیره اطلاعات در حافظه مرورگر
           searchPage.style.display = 'none';
-          
-          var tableHTML = '';
-          response.data.forEach(function(item) {
-            tableHTML += '<tr onclick="selectRow(this)">' +
-                           '<td class="td-header">' + item.header + '</td>' + 
-                           '<td class="td-value">' + item.value + '</td>' +   
-                         '</tr>';
-          });
-          table.innerHTML = tableHTML; 
-          resultPage.style.display = 'block'; 
+          menuPage.style.display = 'block'; // نمایش منوی انتخاب دو گزینه
         } else {
           errorMsg.innerText = response.message;
           errorMsg.style.display = 'block';
@@ -631,7 +666,59 @@
       }); 
     }
 
-    // تابع برای ارسال متن تایپ شده به ستون AE گوگل‌شیت
+    // مرحله دوم: رندر کردن جدول بر اساس دکمه کلیک شده (خلاصه یا تفصیل)
+    function loadMarksTable(type) {
+      var menuPage = document.getElementById('menuPage');
+      var resultPage = document.getElementById('resultPage');
+      var table = document.getElementById('detailsTable');
+      var pageTitle = document.getElementById('pageTitle');
+      
+      table.innerHTML = '';
+      var tableHTML = '';
+
+      if (type === 'summary') {
+        pageTitle.innerText = "❖ د زده کونکي د نمراتو خلاصه (Y تر AD) ❖";
+        // فیلتر کردن کلاینت‌ساید برای امنیت و هماهنگی دقیق: ستون ۲۴ تا ۲۹ (Y تا AD)
+        // آرایه کل مشخصات را دوباره بر اساس بکند فیلتر یا لود می‌کنیم
+        fetch(webAppUrl, {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            basisNumber: currentBasisNum,
+            studentCode: document.getElementById('studentCode').value.trim(),
+            viewType: "summary"
+          })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(response) {
+          if(response.success) {
+            response.data.forEach(function(item) {
+              tableHTML += '<tr onclick="selectRow(this)">' +
+                             '<td class="td-header">' + item.header + '</td>' + 
+                             '<td class="td-value">' + item.value + '</td>' +   
+                           '</tr>';
+            });
+            table.innerHTML = tableHTML;
+            menuPage.style.display = 'none';
+            resultPage.style.display = 'block';
+          }
+        });
+      } else {
+        // وضعیت تفصیلی (دقیقاً وضعیت قبلی سیستم بدون حذف هیچ ستونی)
+        pageTitle.innerText = "❖ د زده کونکي د نمراتو او مشخصاتو بشپړ تفصیل ❖";
+        cachedResponseData.forEach(function(item) {
+          tableHTML += '<tr onclick="selectRow(this)">' +
+                         '<td class="td-header">' + item.header + '</td>' + 
+                         '<td class="td-value">' + item.value + '</td>' +   
+                       '</tr>';
+        });
+        table.innerHTML = tableHTML;
+        menuPage.style.display = 'none';
+        resultPage.style.display = 'block';
+      }
+    }
+
     function submitToAEColumn() {
       var aeText = document.getElementById('aeText').value.trim();
       var msgBox = document.getElementById('result-page-msg');
@@ -665,8 +752,8 @@
         msgBox.innerText = response.message;
         msgBox.style.display = "block";
         if (response.success) {
-          msgBox.style.backgroundColor = "#2e7d32"; // رنگ سبز برای موفقیت
-          document.getElementById('aeText').value = ''; // پاک کردن فیلد متن پس از ارسال
+          msgBox.style.backgroundColor = "#2e7d32"; 
+          document.getElementById('aeText').value = ''; 
         } else {
           msgBox.style.backgroundColor = "#d32f2f";
         }
@@ -688,8 +775,14 @@
       row.classList.add('selected-row');
     }
 
+    function goBackToMenu() {
+      document.getElementById('resultPage').style.display = 'none';
+      document.getElementById('menuPage').style.display = 'block';
+    }
+
     function goBackToSearch() {
       document.getElementById('resultPage').style.display = 'none'; 
+      document.getElementById('menuPage').style.display = 'none'; 
       document.getElementById('basisNum').value = '';              
       document.getElementById('studentCode').value = '';            
       document.getElementById('searchPage').style.display = 'block'; 
