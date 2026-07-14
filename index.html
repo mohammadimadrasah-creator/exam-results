@@ -42,6 +42,7 @@
                         radial-gradient(rgba(194, 153, 27, 0.15) 1px, var(--bg-color) 1px);
       background-size: 24px 24px;          
       background-position: 0 0, 12px 12px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -63,6 +64,27 @@
       outline-offset: -8px;                
       padding: 15px 40px 30px 40px;                  
       transition: all 0.4s ease;           
+    }
+
+    /* سیستم انیمیشن فوق‌العاده لوکس سه بعدی، بلور و زوم کشسانی برای انتقال بین صفحات */
+    .app-page {
+      display: none;
+      opacity: 0;
+      filter: blur(15px);
+      transform: translateY(40px) scale(0.93) rotateX(-5deg);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  filter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* صفحه فعال با حالت ارتجاعی و شفافیت کامل باز می‌شود */
+    .app-page.page-active {
+      display: block !important;
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1) rotateX(0deg);
     }
 
     .header-layout-table {
@@ -151,10 +173,6 @@
       font-size: 16px;                     
       font-weight: 600;
       margin-top: 8px;
-    }
-
-    #searchPage {
-      display: block;                      
     }
 
     .form-group {
@@ -284,10 +302,6 @@
       margin-bottom: 10px;
     }
 
-    #menuPage {
-      display: none;
-    }
-
     .menu-group {
       display: flex;
       flex-direction: column;
@@ -311,18 +325,32 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 6px 15px rgba(6, 38, 31, 0.15);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-menu-opt:hover {
       background: linear-gradient(135deg, var(--accent-color), #a37f13);
       color: #000000;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(194, 153, 27, 0.3);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(194, 153, 27, 0.4);
     }
 
-    #resultPage {
-      display: none;                       
+    /* استایل ضربان ملایم هنگام فشرده شدن دکمه‌های منو */
+    .btn-menu-opt:active {
+      transform: scale(0.97) translateY(2px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-menu-opt.btn-clicked {
+      animation: pulseGlow 0.4s ease-out;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.95); box-shadow: 0 0 25px var(--accent-color); }
+      100% { transform: scale(1); }
     }
 
     .table-title {
@@ -499,7 +527,7 @@
 
     <div id="error-msg"></div>
 
-    <div id="searchPage">
+    <div id="searchPage" class="app-page page-active">
       <div class="form-group">
         <div class="input-box">
           <label for="basisNum">د زده کونکي اساس شمیره:</label>
@@ -523,15 +551,15 @@
       </div>
     </div>
 
-    <div id="menuPage">
+    <div id="menuPage" class="app-page">
       <div class="menu-group">
-        <button class="btn-menu-opt" onclick="loadMarksTable('summary')">۱. د نمراتو خلاصه</button>
-        <button class="btn-menu-opt" onclick="loadMarksTable('full')">۲. د نمراتو تفصیل</button>
+        <button class="btn-menu-opt" id="btn-summary" onclick="animateAndLoad('summary', this)">۱. د نمراتو خلاصه</button>
+        <button class="btn-menu-opt" id="btn-full" onclick="animateAndLoad('full', this)">۲. د نمراتو تفصیل</button>
       </div>
       <button class="btn-back" onclick="goBackToSearch()">له دې صفحې څخه وتل</button>
     </div>
 
-    <div id="resultPage">
+    <div id="resultPage" class="app-page">
       <div class="table-title" id="pageTitle">❖ د زده کونکي نمرات او مشخصات ❖</div>
       <table class="luxury-table" id="detailsTable">
       </table>
@@ -558,6 +586,40 @@
     // حافظه کش کلاینت برای ذخیره همزمان هر دو وضعیت خلاصه و تفصیلی
     var cachedSummaryData = null;
     var cachedFullData = null;
+
+    // تابع اصلی ناوبری متحرک و فوق‌العاده نرم بین صفحات
+    function switchPage(fromPageId, toPageId) {
+      var fromPage = document.getElementById(fromPageId);
+      var toPage = document.getElementById(toPageId);
+
+      // ۱. شروع انیمیشن خروج صفحه فعلی (کمی کوچک شدن و کم رنگ شدن)
+      fromPage.classList.remove('page-active');
+      
+      setTimeout(function() {
+        fromPage.style.display = 'none'; // مخفی کردن کامل پس از اتمام انیمیشن قبلی
+        
+        // ۲. دیسپلی صفحه جدید فعال می‌شود ولی هنوز به علت نداشتن کلاس ناپدید است
+        toPage.style.display = 'block';
+        
+        // ۳. اجرای انیمیشن ورود سه‌بعدی و کشسانی لوکس (با ۲ صدم ثانیه مکث جهت آماده‌سازی مرورگر)
+        setTimeout(function() {
+          toPage.classList.add('page-active');
+        }, 20);
+        
+      }, 500); // همگام با زمان ۵۰۰ میلی‌ثانیه‌ای ترانزیشن CSS جدید
+    }
+
+    // تابع مخصوص اجرای انیمیشن کلیک دکمه‌های صفحه دوم قبل از انتقال لوکس
+    function animateAndLoad(type, buttonElement) {
+      // اضافه کردن کلاس افکت انیمیشن پالس و درخشش به دکمه فشرده شده
+      buttonElement.classList.add('btn-clicked');
+      
+      // وقفه کوتاه ۲۵۰ میلی‌ثانیه‌ای تا انیمیشن دکمه اجرا شود، سپس انتقال فوق‌العاده نرم به صفحه سوم
+      setTimeout(function() {
+        buttonElement.classList.remove('btn-clicked');
+        loadMarksTable(type);
+      }, 250);
+    }
 
     function handleBasisEnter(event) {
       if (event.key === 'Enter') {
@@ -589,8 +651,6 @@
       
       var errorMsg = document.getElementById('error-msg');
       var loading = document.getElementById('loading');
-      var searchPage = document.getElementById('searchPage');
-      var menuPage = document.getElementById('menuPage');
 
       errorMsg.style.display = 'none';
       document.getElementById('aeText').value = ''; 
@@ -626,9 +686,8 @@
           cachedSummaryData = response.summaryData;
           cachedFullData = response.fullData;
           
-          // باز شدن صفحه دوم به صورت آنی
-          searchPage.style.display = 'none';
-          menuPage.style.display = 'block'; 
+          // باز شدن صفحه دوم با انیمیشن فوق‌العاده نرم و جدید
+          switchPage('searchPage', 'menuPage');
         } else {
           errorMsg.innerText = response.message;
           errorMsg.style.display = 'block';
@@ -642,10 +701,8 @@
       }); 
     }
 
-    // مرحله دوم: رندر کاملاً آنی و در صدم ثانیه (بدون هیچ درخواستی به اینترنت و گوگل شیت)
+    // مرحله دوم: رندر کاملاً آنی و انتقال فوق‌العاده لوکس و چشم‌نواز به صفحه جدول
     function loadMarksTable(type) {
-      var menuPage = document.getElementById('menuPage');
-      var resultPage = document.getElementById('resultPage');
       var table = document.getElementById('detailsTable');
       var pageTitle = document.getElementById('pageTitle');
       
@@ -665,9 +722,8 @@
         });
         table.innerHTML = tableHTML;
         
-        // جابجایی صفحات بدون تاخیر
-        menuPage.style.display = 'none';
-        resultPage.style.display = 'block';
+        // جابجایی لوکس و متحرک بین صفحه منو و صفحه نتایج
+        switchPage('menuPage', 'resultPage');
       } else {
         alert("د دې برخې لپاره معلومات شتون نلري.");
       }
@@ -730,17 +786,19 @@
     }
 
     function goBackToMenu() {
-      document.getElementById('resultPage').style.display = 'none';
-      document.getElementById('menuPage').style.display = 'block';
+      switchPage('resultPage', 'menuPage');
     }
 
     function goBackToSearch() {
-      document.getElementById('resultPage').style.display = 'none'; 
-      document.getElementById('menuPage').style.display = 'none'; 
-      document.getElementById('basisNum').value = '';              
-      document.getElementById('studentCode').value = '';            
-      document.getElementById('searchPage').style.display = 'block'; 
-      document.getElementById('basisNum').focus();                  
+      // ابتدا صفحه دوم را متحرک ببند و صفحه اول را نشان بده
+      switchPage('menuPage', 'searchPage');
+      
+      // پاک کردن فیلدها پس از جابجایی
+      setTimeout(function() {
+        document.getElementById('basisNum').value = '';              
+        document.getElementById('studentCode').value = '';            
+        document.getElementById('basisNum').focus();                  
+      }, 500);
     }
   </script>
 
